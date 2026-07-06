@@ -131,9 +131,3 @@ npm start        # 直接启动 electron
 ```
 C:\Users\[用户名]\AppData\Roaming\reminder-clock-nodejs\config.json
 ```
-
----
-
-## 许可
-
-[MIT](LICENSE)
