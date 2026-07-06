@@ -1,0 +1,49 @@
+{
+  "name": "reminder-clock",
+  "version": "1.0.0",
+  "description": "桌面提醒时钟 - 定时提醒喝水、活动等",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"npx vite\" \"npx esbuild src/main/index.ts --bundle --platform=node --tsconfig=tsconfig.main.json --outfile=dist/main/index.js --external:electron --external:electron-store --watch\" \"npx wait-on http://localhost:5173 && npx electron . --dev\"",
+    "build": "npx esbuild src/main/index.ts --bundle --platform=node --tsconfig=tsconfig.main.json --outfile=dist/main/index.js --external:electron --external:electron-store && npx esbuild src/main/preload.ts --bundle --platform=node --tsconfig=tsconfig.main.json --outfile=dist/main/preload.js --external:electron && npx vite build",
+    "pack": "npm run build && electron-builder --win",
+    "start": "npx electron ."
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/uuid": "^9.0.8",
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^8.2.2",
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.21.4",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.12",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.reminder-clock.app",
+    "productName": "提醒时钟",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "resources/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "resources/icon.png",
+      "signAndEditExecutable": false
+    }
+  }
+}
